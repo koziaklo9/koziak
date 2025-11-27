@@ -6,7 +6,6 @@
   <title>Strona A. Koziak</title>
 
   <style>
-    /* === Reset === */
     * {
       margin: 0;
       padding: 0;
@@ -31,7 +30,6 @@
       100% { background-position: right bottom; }
     }
 
-    /* === Card === */
     .container {
       background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(10px);
@@ -63,38 +61,70 @@
       opacity: 0.85;
     }
 
-    /* === Button === */
-    a.button {
-      display: inline-block;
-      padding: 16px 32px;
-      background: #fb5607;
-      color: white;
-      font-size: 20px;
-      border-radius: 12px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: 0.3s;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    input {
+      padding: 12px 20px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: none;
+      margin-bottom: 20px;
     }
 
-    a.button:hover {
-      background: #ff7d1a;
-      transform: scale(1.07);
-      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    button {
+      padding: 12px 24px;
+      font-size: 18px;
+      border-radius: 12px;
+      border: none;
+      background: #fb5607;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.3s;
     }
+
+    button:hover {
+      background: #ff7d1a;
+      transform: scale(1.05);
+    }
+
+    .hidden {
+      display: none;
+    }
+
   </style>
 </head>
 <body>
 
-  <div class="container">
+  <!-- PIN login -->
+  <div class="container" id="loginContainer">
+    <h1>Podaj PIN, aby wejść</h1>
+    <input type="password" id="pinInput" placeholder="Wpisz PIN" />
+    <br/>
+    <button onclick="checkPin()">Zaloguj</button>
+    <p id="errorMsg" style="color: #ff7777; margin-top: 15px;"></p>
+  </div>
+
+  <!-- Główna strona -->
+  <div class="container hidden" id="mainContent">
     <h1>Strona Aleksandra Koziaka</h1>
-
     <p>Prezentacja o Niepodległości:</p>
-
     <a class="button" href="https://docs.google.com/presentation/d/1Yx8cwArbhXtV9G1y0BMPWF2O-5iSmjFxhORHN8UVMMY/edit?usp=sharing" target="_blank">
       Otwórz Prezentację
     </a>
   </div>
+
+  <script>
+    function checkPin() {
+      const input = document.getElementById('pinInput').value;
+      const errorMsg = document.getElementById('errorMsg');
+      if (input === "0805") {
+        // PIN poprawny → pokaż główną zawartość
+        document.getElementById('loginContainer').classList.add('hidden');
+        document.getElementById('mainContent').classList.remove('hidden');
+      } else {
+        // PIN niepoprawny
+        errorMsg.textContent = "Niepoprawny PIN!";
+      }
+    }
+  </script>
 
 </body>
 </html>
